@@ -301,8 +301,9 @@ elif page == "📂 Batch Upload":
         if "Promo2Active" not in batch_raw.columns:
             batch_raw["Promo2Active"] = 0
 
-        # Build lag/rolling with full history for context
-        batch_feat = build_features(batch_raw, is_train=True)
+        # Build lag/rolling only if Sales column present (train data)
+        has_sales = "Sales" in batch_raw.columns
+        batch_feat = build_features(batch_raw, is_train=has_sales)
 
         for c in forecaster.feature_cols:
             if c not in batch_feat.columns:
