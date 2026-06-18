@@ -1,0 +1,121 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "demand-forecast-explainer"
+version = "1.0.0"
+description = "Retail sales forecasting with SHAP-powered explanations using LightGBM"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Priyal", email = "priyal@example.com"}
+]
+keywords = [
+    "forecasting",
+    "machine-learning",
+    "shap",
+    "explainability",
+    "lightgbm",
+    "streamlit",
+    "time-series"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "lightgbm>=4.0",
+    "shap>=0.44",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+    "numpy>=1.24",
+    "streamlit>=1.30",
+    "plotly>=5.18",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=23.0",
+    "isort>=5.12",
+    "pylint>=2.17",
+    "flake8>=6.0",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "bandit>=1.7",
+    "safety>=2.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/priyal2307/demand-forecast-explainer"
+Repository = "https://github.com/priyal2307/demand-forecast-explainer.git"
+"Bug Tracker" = "https://github.com/priyal2307/demand-forecast-explainer/issues"
+Documentation = "https://github.com/priyal2307/demand-forecast-explainer#readme"
+Changelog = "https://github.com/priyal2307/demand-forecast-explainer/blob/main/CHANGELOG.md"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+skip_gitignore = true
+known_first_party = ["src"]
+
+[tool.pylint]
+max-line-length = 100
+disable = [
+    "C0111",  # missing-docstring
+    "W0212",  # protected-access
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "--cov=src --cov-report=html --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]

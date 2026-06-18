@@ -1,12 +1,39 @@
 # Demand Forecast Explainer
 
+<div align="center">
+
+[![Python Version](https://img.shields.io/badge/python-3.9%2B-blue?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![Streamlit](https://img.shields.io/badge/streamlit-%23FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![LightGBM](https://img.shields.io/badge/LightGBM-4.0%2B-lightgrey)](https://lightgbm.readthedocs.io/)
+[![SHAP](https://img.shields.io/badge/SHAP-explainability-informational)](https://github.com/slundberg/shap)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Code Style](https://img.shields.io/badge/code%20style-black-000000)](https://github.com/psf/black)
+
 **Retail sales forecasting with SHAP-powered explanations** — built on the Rossmann Store Sales dataset.
 
 A production-style forecasting system for retail demand, combining LightGBM gradient boosting with quantile regression (confidence bands) and SHAP explainability, served via a Streamlit dashboard.
 
+</div>
+
 ---
 
-## What this is
+## 📋 Table of Contents
+
+- [What this is](#what-this-is)
+- [Quick Start](#quick-start)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Key Modeling Decisions](#key-modeling-decisions)
+- [Results](#results)
+- [Dataset](#dataset)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Limitations](#limitations)
+- [Contributing](#contributing)
+- [License](#license)
+- [Next Steps](#next-steps)
+
+---
 
 A store manager or analyst selects a retail store. The system:
 
@@ -36,6 +63,61 @@ python3 -m streamlit run app/copilot.py
 ```
 
 Prebuilt artifacts ship in `artifacts/` — skip to the last step to demo immediately.
+
+---
+
+## Installation
+
+### Prerequisites
+- Python 3.9+
+- pip or conda
+
+### Clone & Setup
+
+```bash
+git clone https://github.com/priyal2307/demand-forecast-explainer.git
+cd demand-forecast-explainer
+
+# Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+---
+
+## Usage
+
+### Option 1: Quick Demo (Prebuilt Models)
+```bash
+streamlit run app/copilot.py
+# Opens at http://localhost:8501
+```
+
+### Option 2: Full Pipeline (Train from Scratch)
+```bash
+# Step 1: Clean raw data
+python3 src/clean.py
+
+# Step 2: Train models and generate SHAP explanations
+PYTHONPATH=src python3 src/train.py
+
+# Step 3: Launch dashboard
+streamlit run app/copilot.py
+```
+
+### Option 3: Batch Inference
+```python
+from src.inference import Forecaster
+import pandas as pd
+
+forecaster = Forecaster()
+new_data = pd.read_csv("new_stores.csv")
+predictions = forecaster.predict(new_data)
+predictions.to_csv("forecast_results.csv", index=False)
+```
 
 ---
 
@@ -125,6 +207,22 @@ src/clean.py  ──►  data/processed/train_ready.csv
 - **No external features** — weather, economic indicators, or nearby events could improve accuracy
 - **Lag features require history** — for truly new stores with no sales history, lag/rolling features fall back to zeros
 - **Point-in-time only** — the current UI forecasts based on the last known date in training; extending to future dates requires a rolling inference approach
+
+---
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Reporting bugs
+- Submitting pull requests
+- Code style and testing requirements
+- Development setup
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
 
 ---
 
