@@ -1,5 +1,8 @@
-# Raw data (Kaggle source files — not committed)
-data/raw/
+# Raw data (large Kaggle files — not committed)
+data/raw/train.csv
+data/raw/test.csv
+
+# store.csv is committed (small metadata, needed for batch upload)
 
 # Python
 __pycache__/
