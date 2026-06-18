@@ -1,0 +1,11 @@
+{
+  "test_rmse": 901.59,
+  "test_mape": 0.0943,
+  "naive_mape": 0.3625,
+  "n_train": 728628,
+  "n_val": 38638,
+  "n_test": 45852,
+  "cutoff_val": "2015-05-01",
+  "cutoff_test": "2015-06-15",
+  "n_features": 30
+}
