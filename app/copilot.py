@@ -23,6 +23,7 @@ st.set_page_config(
     page_icon="📦",
     layout="wide",
     initial_sidebar_state="expanded",
+    theme="dark",
 )
 
 # ── CSS ───────────────────────────────────────────────────────────────────────
@@ -74,7 +75,7 @@ stores     = sorted(df_all["Store"].unique())
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## 📦 Demand Forecast\nExplainer")
+    st.markdown("## 📦 Demand Forecast Explainer")
     st.markdown("---")
     page = st.radio("Navigate", ["🏪 Store Forecast", "📊 Model Performance", "📂 Batch Upload"])
     st.markdown("---")
